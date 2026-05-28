@@ -2,6 +2,8 @@ import hashlib
 import json
 import re
 from typing import Dict, Any, List, Optional
+from preprocessing.schema_inspector import SchemaInspector
+from preprocessing.schema_adapter import SchemaAdapter
 
 class ChunkNormalizer:
     @staticmethod
@@ -113,9 +115,24 @@ class DocumentChunker:
     def chunk_document(self, filename: str, document: Dict[str, Any]) -> List[Dict[str, Any]]:
         """
         Takes a filename and a loaded JSON document, returns a list of chunks matching the schema.
+        Now uses SchemaInspector and SchemaAdapter for adaptive processing.
         """
         drug_name = self._extract_drug_name(filename)
+
+        # 1. Inspect schema
+        inspector = SchemaInspector()
+        schema_summary = inspector.inspect(document)
+        # Note: the summary can be logged or returned if needed. We'll use it to inform the pipeline conceptually,
+        # but the adapter does the actual data transformation.
+
+        # 2. Adapt schema
+        adapter = SchemaAdapter()
+        adapted_document = adapter.adapt(drug_name, document)
+
+        # We need to traverse the adapted structure. It stores the content in adapted_document["content"]
         extracted_sections = []
+        # We traverse original document for backward compatibility of extracted texts
+        # But we will use adapted metadata.
         self._traverse(document, [], extracted_sections)
 
         raw_chunks = []
@@ -138,14 +155,14 @@ class DocumentChunker:
                     "source_file": filename,
                     "section": section,
                     "text": split_text,
-                    "metadata": {
+                    "metadata": adapted_document.get("metadata", {
                         "dosage": None,
                         "route": None,
                         "population": None,
                         "warnings": None,
                         "j_codes": None,
                         "black_box": None
-                    }
+                    })
                 })
 
         # Apply normalizations
