@@ -1,6 +1,6 @@
 import sys
 import logging
-from config import DATA_DIR, PI_FILENAMES
+from core_config import DATA_DIR, PI_FILENAMES
 from preprocessing.kb_loader import KBLoader
 
 def main():
