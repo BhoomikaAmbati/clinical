@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import List, Dict, Any
 from sentence_transformers import SentenceTransformer
 
-from config import BASE_DIR
+from core_config import BASE_DIR
 
 logger = logging.getLogger(__name__)
 

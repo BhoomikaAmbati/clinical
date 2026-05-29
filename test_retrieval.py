@@ -1,7 +1,7 @@
 import logging
 import json
 from pathlib import Path
-from config import BASE_DIR
+from core_config import BASE_DIR
 from retrieval.index_manager import IndexManager
 
 # Setup basic logging

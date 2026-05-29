@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 from typing import List, Dict, Any
 
-from config import BASE_DIR
+from core_config import BASE_DIR
 from retrieval.bm25 import BM25Retriever
 from retrieval.semantic import SemanticRetriever
 

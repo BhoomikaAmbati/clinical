@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from typing import List, Dict, Any
 
-from config import BASE_DIR
+from core_config import BASE_DIR
 
 CHUNKS_DIR = BASE_DIR / "chunked"
 

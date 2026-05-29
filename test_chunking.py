@@ -1,7 +1,7 @@
 import sys
 import json
 from collections import Counter
-from config import DATA_DIR, PI_FILENAMES
+from core_config import DATA_DIR, PI_FILENAMES
 from preprocessing.kb_loader import KBLoader
 from preprocessing.chunker import DocumentChunker
 from preprocessing.save_chunks import save_chunks

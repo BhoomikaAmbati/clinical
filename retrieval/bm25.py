@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import List, Dict, Any
 from rank_bm25 import BM25Okapi
 
-from config import BASE_DIR
+from core_config import BASE_DIR
 
 logger = logging.getLogger(__name__)
 
